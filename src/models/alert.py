@@ -2,11 +2,11 @@ from typing import Dict, Any
 
 
 class Alert:
-    def __init__(self, start, end, count):
+    def __init__(self, start, end, count, events):
         self.start = start
         self.end = end
         self.count = count
-        self.events = []
+        self.events = events
 
     def to_dict(self) -> Dict[str, Any]:
         return {
