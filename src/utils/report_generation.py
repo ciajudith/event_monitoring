@@ -11,7 +11,7 @@ def build_pdf_report(stats: dict, image_path: Path, output_path: Path) -> Path:
     pdf.cell(0, 10, "Rapport de traitement des logs", ln=True, align="C")
     pdf.ln(5)
     pdf.set_font("Arial", "", 12)
-    pdf.cell(0, 8, f"Date : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ln=True)
+    pdf.cell(0, 8, f"Généré le : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ln=True)
     pdf.ln(5)
 
     # Statistiques

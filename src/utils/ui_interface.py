@@ -56,19 +56,3 @@ def show_stats():
     Prompt.ask("Appuyez sur Entrée pour revenir au menu")
 
 
-def show_ui():
-    while True:
-        show_menu()
-        choice = Prompt.ask("Choisir une option", choices=[str(i) for i in range(1,6)])
-        if choice == "1":
-            run_processing()
-        elif choice == "2":
-            show_alerts()
-        elif choice == "3":
-            create_report()
-        elif choice == "4":
-            show_stats()
-        else:
-            console.print("[bold red]👋 Au revoir ![/bold red]")
-            break
-

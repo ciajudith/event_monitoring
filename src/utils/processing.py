@@ -19,10 +19,15 @@ REPORT_FILE = OUTPUT_DIR / "report.pdf"
 PLOT_FILE   = OUTPUT_DIR / "stats.png"
 
 
-analyzer = EventAnalyzer()
-logger = EventLogger(alert_file=str(ALERT_FILE))
+analyzer = None
+logger = None
 
 async def process_logs(log_path: str = "input/events.log", delay: float = 2.0):
+    global analyzer, logger
+    if analyzer is None:
+        analyzer = EventAnalyzer()
+    if logger is None:
+        logger = EventLogger(alert_file=str(ALERT_FILE))
     OUTPUT_DIR.mkdir(exist_ok=True)
     if not ALERT_FILE.exists():
         ALERT_FILE.write_text("[]", encoding="utf-8")
@@ -40,7 +45,6 @@ async def process_logs(log_path: str = "input/events.log", delay: float = 2.0):
                     logger.record(alert)
             except Exception as e:
                 logger.error(f"Erreur lors du parsing : {e}")
-                traceback.print_exc()
             await asyncio.sleep(delay)
     return analyzer
 
