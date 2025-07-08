@@ -34,4 +34,4 @@ class EventLogger:
         data = json.loads(self.alert_path.read_text(encoding="utf-8"))
         data.append(alert.to_dict())
         self.alert_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
-        self.logger.critical(f"Alerte enregistrée : {alert.to_dict()}")
+        self.logger.critical(f"Alerte enregistrée : ({alert.count} événements)")

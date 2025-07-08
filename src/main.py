@@ -4,7 +4,7 @@ from rich.prompt import Prompt
 
 from src.utils.ui_interface import show_menu, run_processing, show_alerts, create_report, show_stats
 from src.utils.ui_interface import console
-from src.utils.processing import analyzer, logger
+import src.utils.processing as processing
 
 
 def show_ui():
@@ -15,17 +15,17 @@ def show_ui():
         if choice == "1":
             run_processing()
         elif choice == "2":
-            if analyzer is None or logger is None:
+            if processing.analyzer is None or processing.logger is None:
                 console.print("[bold red]⚠️ Veuillez d'abord lancer le traitement des logs ! (Option 1)[/bold red]")
                 continue
             show_alerts()
         elif choice == "3":
-            if analyzer is None or logger is None:
+            if  processing.analyzer is None or processing.logger is None:
                 console.print("[bold red]⚠️ Veuillez d'abord lancer le traitement des logs ! (Option 1)[/bold red]")
                 continue
             create_report()
         elif choice == "4":
-            if analyzer is None or logger is None:
+            if  processing.analyzer is None or processing.logger is None:
                 console.print("[bold red]⚠️ Veuillez d'abord lancer le traitement des logs ! (Option 1)[/bold red]")
                 continue
             show_stats()
