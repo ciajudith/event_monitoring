@@ -20,7 +20,7 @@ PLOT_FILE   = OUTPUT_DIR / "stats.png"
 analyzer = EventAnalyzer()
 logger = EventLogger(alert_file=str(ALERT_FILE))
 
-async def process_logs(log_path: str = "src/input/events.log", delay: float = 2.0):
+async def process_logs(log_path: str = "input/events.log", delay: float = 2.0):
     OUTPUT_DIR.mkdir(exist_ok=True)
     if not ALERT_FILE.exists():
         ALERT_FILE.write_text("[]", encoding="utf-8")
