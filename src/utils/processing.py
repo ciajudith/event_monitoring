@@ -10,6 +10,7 @@ from src.models.event import Event
 from src.models.event_analyzer import EventAnalyzer
 from src.models.event_logger import EventLogger
 from src.utils.plot_generation import plot_level_counts
+from src.utils.report_generation import build_pdf_report
 
 # Constantes pour les fichiers de sortie
 OUTPUT_DIR = Path("outputs")
@@ -47,52 +48,8 @@ async def process_logs(log_path: str = "input/events.log", delay: float = 2.0):
 def generate_report() -> Path:
     stats = analyzer.stats()
     plot_level_counts(analyzer.stats()["level_counts"], save_path=PLOT_FILE, show=False)
-    # PDF creation
-    pdf = FPDF()
-    pdf.set_auto_page_break(margin=15, auto=True)
-    pdf.add_page()
-    pdf.set_font("Arial", "B", 16)
-    pdf.cell(0, 10, "Rapport de traitement des logs", ln=True, align="C")
-    pdf.ln(5)
-    pdf.set_font("Arial", "", 12)
-    pdf.cell(0, 8, f"Date : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ln=True)
-    pdf.ln(5)
-
-    # Statistiques
-    pdf.set_font("Arial", "B", 14)
-    pdf.cell(0, 8, "Statistiques globales :", ln=True)
-    pdf.ln(3)
-    pdf.set_font("Arial", "", 12)
-    pdf.cell(0, 6, f"Nombre total des évenements                : {stats['total_events']}\n", ln=True)
-    pdf.cell(0, 6, f"Nombre total des évenements critiques : {stats['level_counts'].get('CRITICAL', 0)+stats['level_counts'].get('ERROR', 0)}\n", ln=True)
-    pdf.cell(0, 6, f"Nombres d'alerte(s) détectée(s)             : {len(stats['alerts'])}\n", ln=True)
-    pdf.ln(5)
-
-    # Alert details
-    pdf.set_font("Arial", "B", 14)
-    pdf.cell(0, 8, "Détails des alertes :", ln=True)
-    pdf.ln(3)
-    pdf.set_font("Arial", "", 12)
-    for a in stats["alerts"]:
-        start_dt = datetime.fromisoformat(a["start"])
-        end_dt = datetime.fromisoformat(a["end"])
-
-        fmt = "%d/%m/%Y %H:%M:%S"
-
-        start_str = start_dt.strftime(fmt)
-        end_str = end_dt.strftime(fmt)
-
-        pdf.multi_cell(0, 6, f"- Début : {start_str}  Fin : {end_str}  Nombre : {a['count']}")
-    pdf.ln(10)
-
-    # Histogram
-    pdf.set_font("Arial", "B", 14)
-    pdf.cell(0, 8, "Histogramme des niveaux :", ln=True)
-    pdf.image(str(PLOT_FILE), x=30, w=150)
-    pdf.ln(10)
-
-    pdf.output(str(REPORT_FILE))
-    return REPORT_FILE
+    report_path = build_pdf_report(stats, PLOT_FILE, REPORT_FILE)
+    return report_path
 
 def get_alerts():
     if not ALERT_FILE.exists():
