@@ -1,5 +1,6 @@
 import asyncio
 import json
+import traceback
 from datetime import datetime
 from pathlib import Path
 
@@ -38,6 +39,7 @@ async def process_logs(log_path: str = "input/events.log", delay: float = 2.0):
                     logger.record(alert)
             except Exception as e:
                 logger.error(f"Erreur lors du parsing : {e}")
+                traceback.print_exc()
             await asyncio.sleep(delay)
     return analyzer
 

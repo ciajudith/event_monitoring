@@ -38,3 +38,14 @@ class Event:
             event_id=data.get("event_id"),
             template=data.get("template")
         )
+    def to_dict(self) -> dict:
+        return {
+            "timestamp": self.timestamp.isoformat(),
+            "level": self.level,
+            "node": self.node,
+            "component": self.component,
+            "id": self.ids,
+            "message": self.message,
+            "event_id": self.event_id,
+            "template": self.template
+        }

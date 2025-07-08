@@ -24,7 +24,7 @@ class EventAnalyzer:
                 self.critical_events.popleft()
             if len(self.critical_events) >= self.threshold:
                 alert = Alert(
-                    start=self.critical_events[0],
+                    start=self.critical_events[0].timestamp,
                     end=event.timestamp,
                     count=len(self.critical_events),
                     events=list(self.critical_events)
