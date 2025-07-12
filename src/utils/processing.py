@@ -1,10 +1,7 @@
 import asyncio
 import json
-import traceback
-from datetime import datetime
 from pathlib import Path
 
-from fpdf import FPDF
 
 from src.models.event import Event
 from src.models.event_analyzer import EventAnalyzer
@@ -23,6 +20,12 @@ analyzer = None
 logger = None
 
 async def process_logs(log_path: str = "input/events.log", delay: float = 2.0):
+    """
+    Fonction asynchrone pour traiter les logs d'événements.
+    :param log_path: Chemin vers le fichier de logs à traiter.
+    :param delay: Délai en secondes entre le traitement de chaque ligne de log.
+    :return: L'instance de l'analyseur d'événements.
+    """
     global analyzer, logger
     if analyzer is None:
         analyzer = EventAnalyzer()
@@ -50,17 +53,26 @@ async def process_logs(log_path: str = "input/events.log", delay: float = 2.0):
 
 
 def generate_report() -> Path:
+    """
+    Génère un rapport PDF à partir des statistiques de l'analyseur d'événements.
+    """
     stats = analyzer.stats()
     plot_level_counts(analyzer.stats()["level_counts"], save_path=PLOT_FILE, show=False)
     report_path = build_pdf_report(stats, PLOT_FILE, REPORT_FILE)
     return report_path
 
 def get_alerts():
+    """
+    Récupère les alertes enregistrées dans le fichier JSON.
+    """
     if not ALERT_FILE.exists():
         return []
     return json.loads(ALERT_FILE.read_text(encoding="utf-8"))
 
 
 def get_level_counts():
+    """
+    Récupère les comptes de niveaux d'événements de l'analyseur.
+    """
     return analyzer.level_counts
 

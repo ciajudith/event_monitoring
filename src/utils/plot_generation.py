@@ -3,6 +3,14 @@ from pathlib import Path
 from typing import Dict
 
 def plot_level_counts(level_counts: Dict[str, int], save_path: Path = None, show: bool = False, figsize: tuple = (6, 4)) -> None:
+    """
+    Génère un graphique à barres représentant la fréquence des événements par niveau de priorité.
+    :param level_counts: Dictionnaire contenant les niveaux de priorité et leur fréquence.
+    :param save_path: Chemin où enregistrer le graphique. Si None, le graphique ne sera pas enregistré.
+    :param show: Booléen indiquant si le graphique doit être affiché.
+    :param figsize: Tuple définissant la taille de la figure (largeur, hauteur).
+    :return:
+    """
     level_colors = {
         "INFO": "green",
         "WARN": "orange",

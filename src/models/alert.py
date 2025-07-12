@@ -2,6 +2,9 @@ from typing import Dict, Any
 
 
 class Alert:
+    """
+    Représente une alerte générée par l'analyseur d'événements.
+    """
     def __init__(self, start, end, count, events):
         self.start = start
         self.end = end

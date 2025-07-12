@@ -4,6 +4,10 @@ from pathlib import Path
 from  src.models.event_analyzer import Alert
 
 class EventLogger:
+    """
+    Classe pour enregistrer les événements et les alertes dans un fichier JSON (alerts.json).
+    Cette classe gère également la journalisation des messages d'information, d'avertissement, d'erreur et critique.
+    """
     def __init__(self, alert_file: str = "outputs/alerts.json", log_level: int = logging.INFO):
         self.logger = logging.getLogger("EventMonitor")
         self.logger.setLevel(log_level)

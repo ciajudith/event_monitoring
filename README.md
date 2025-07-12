@@ -4,7 +4,7 @@ Ce projet implémente une chaîne de traitement d'événements à partir d'un fi
 
 ---
 
-## 📂 Structure du projet
+## Structure du projet
 
 Voici la structure du projet :
 
@@ -18,6 +18,8 @@ event_monitoring/
 │   └── report.pdf          # Rapport PDF généré
 ├── src/                     # Code source
 │   ├── main.py             # Point d'entrée de l'application
+│   ├── fonts/              
+│   │   └── NotoEmoji-Regular.ttf  # Police utilisée pour les icones dans le PDF
 │   ├── models/              # Définitions des classes métiers
 │   │   ├── alert.py      
 │   │   ├── event.py      
@@ -34,7 +36,7 @@ event_monitoring/
 
 ---
 
-## ✅ Installation
+## Installation
 
 1. **Cloner le dépôt**
 
@@ -60,7 +62,7 @@ event_monitoring/
    ```
 
 
-## ▶️ Usage
+## Usage
 
 Depuis la racine du projet et avec l'environnement virtuel activé, lancez l'application avec la commande suivante:
 
@@ -71,7 +73,7 @@ python -m src.main
 
 ---
 
-## 📊 Fonctionnalités
+## Fonctionnalités
 
 1. **Chargement et prétraitement** (`utils/processing.py`) : parsing des lignes de logs en objets `Event`.
 2. **Analyse d'événements** (`models/event_analyzer.py`) : détection d'anomalies et création d'objets `Alert`.
@@ -80,4 +82,4 @@ python -m src.main
 5. **Interface utilisateur** (`utils/ui_interface.py`) : quelques fonctions CLI pour lancer chaque étape manuellement.
 
 ---
-***Made by ciajudith.***
+>***Made by @ciajudith.***
