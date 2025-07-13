@@ -1,51 +1,51 @@
-# Surveillance d'événements (Event Monitoring)
+# Event Monitoring
 
-Ce projet implémente une chaîne de traitement d'événements à partir d'un fichier de logs, génère des alertes, produit des statistiques visuelles et un rapport PDF, et propose une interface utilisateur basique.
+This project implements an event processing pipeline from a log file, generates alerts, produces visual statistics and a PDF report, and provides a basic user interface.
 
+> Link to the [presentation video](https://www.loom.com/share/4991544e43634906928f92d850d9d1c1?sid=3389e641-1faa-4024-b856-17f9555b93da).
 ---
 
-## Structure du projet
+## Project Structure
 
-Voici la structure du projet :
-
+Here is the project structure:
 ```
 event_monitoring/
-├── input/                   # Dossier d'entrée
-│   └── events.log          # Fichier de logs à analyser
-├── outputs/                 # Dossier de sortie
-│   ├── alerts.json         # Alertes détectées au format JSON
-│   ├── stats.png           # Graphique des statistiques
-│   └── report.pdf          # Rapport PDF généré
-├── src/                     # Code source
-│   ├── main.py             # Point d'entrée de l'application
+├── input/                   # Input folder
+│   └── events.log          # Log file to be processed
+├── outputs/                 # Output folder
+│   ├── alerts.json         # Detected alerts in JSON format
+│   ├── stats.png           # Graphical statistics (histogram)
+│   └── report.pdf          # Generated PDF report
+├── src/                     # Source code folder
+│   ├── main.py             # Entry point of the application
 │   ├── fonts/              
-│   │   └── NotoEmoji-Regular.ttf  # Police utilisée pour les icones dans le PDF
-│   ├── models/              # Définitions des classes métiers
+│   │   └── NotoEmoji-Regular.ttf  # Font for emojis in the PDF report
+│   ├── models/              # Models for events and alerts
 │   │   ├── alert.py      
 │   │   ├── event.py      
-│   │   ├── event_analyzer.py # Analyseur d'événements
-│   │   └── event_logger.py # Logger personnalisé
-│   └── utils/              # Fonctions utilitaires
-│       ├── processing.py   # Chargement et prétraitement des données
-│       ├── plot_generation.py # Génération de graphiques
-│       ├── report_generation.py # Création du rapport PDF
-│       └── ui_interface.py # Interface utilisateur (CLI ou basique)
+│   │   ├── event_analyzer.py # Analyzes events and detects anomalies
+│   │   └── event_logger.py # Performs logging of events
+│   └── utils/              # Utility functions
+│       ├── processing.py   # Loading and preprocessing of log lines
+│       ├── plot_generation.py # Generates charts (histogram)
+│       ├── report_generation.py # Generates PDF report
+│       └── ui_interface.py # User interface functions
 ├── README.md             
-└── requirements.txt        # Dépendances Python
+└── requirements.txt     
 ```
 
 ---
 
 ## Installation
 
-1. **Cloner le dépôt**
+1. **Clone the repository**
 
    ```bash
    git clone https://github.com/ciajudith/event_monitoring
    cd event_monitoring
    ```
 
-2. **Créer et activer un environnement virtuel**
+2. **Create and activate a virtual environment**
 
    ```bash
    python -m venv .venv
@@ -55,31 +55,28 @@ event_monitoring/
    .\.venv\Scripts\Activate.ps1
    ```
 
-3. **Installer les dépendances**
+3. **Install dependencies**
 
    ```bash
    pip install -r requirements.txt
    ```
 
-
 ## Usage
 
-Depuis la racine du projet et avec l'environnement virtuel activé, lancez l'application avec la commande suivante:
-
+From the project root and with the virtual environment activated, run the application with the following command:
 ```bash
-
 python -m src.main
 ```
+---
+
+## Functionalities
+
+1. **Loading and preprocessing** (`utils/processing.py`): parses log lines into `Event` objects.
+2. **Event analysis** (`models/event_analyzer.py`): detects anomalies and creates `Alert` objects.
+3. **Chart generation** (`utils/plot_generation.py`): produces a histogram chart saved as `stats.png`.
+4. **Report generation** (`utils/report_generation.py`): aggregates results and creates a `report.pdf`.
+5. **User interface** (`utils/ui_interface.py`): some CLI functions to manually run each step.
 
 ---
 
-## Fonctionnalités
-
-1. **Chargement et prétraitement** (`utils/processing.py`) : parsing des lignes de logs en objets `Event`.
-2. **Analyse d'événements** (`models/event_analyzer.py`) : détection d'anomalies et création d'objets `Alert`.
-3. **Génération de graphiques** (`utils/plot_generation.py`) : production d'un histogramme ou d'un graphique de tendance enregistré en `stats.png`.
-4. **Génération de rapport** (`utils/report_generation.py`) : agrégation des résultats et création d'un PDF `report.pdf`.
-5. **Interface utilisateur** (`utils/ui_interface.py`) : quelques fonctions CLI pour lancer chaque étape manuellement.
-
----
 >***Made by @ciajudith.***
